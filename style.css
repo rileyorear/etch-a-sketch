@@ -11,11 +11,11 @@
   flex-wrap: wrap;
   height: 500px;
   width: 500px; 
+  border: 2px solid black;
 }
 
  .grid-box {
   display: flex;
-  /* height: 29.25px;
-  width:  29.25px; */
-  /* border: 1px solid black; */
  }
+
+ 
