@@ -3,6 +3,8 @@ const body = document.querySelector('body');
 const sizeButton = document.querySelector('#sizeButton');
 const resetButton = document.querySelector('#resetButton');
 const eraserButton = document.querySelector('#eraserButton');
+const rainbowButton = document.querySelector('#rainbowButton');
+const shadingButton = document.querySelector('shadingButton');
 
 let mouseDown = false;
 body.addEventListener('mousedown', () => {
@@ -30,6 +32,36 @@ eraserButton.addEventListener('mouseup', () => {
   }
 });
 
+let rainbow = false;
+rainbowButton.addEventListener('mouseup', () => {
+  if (rainbow === false) {
+    rainbow = true;
+    rainbowButton.textContent = 'RAINBOW: ON';
+  } 
+  else {
+    rainbow = false;
+    rainbowButton.textContent = 'RAINBOW: OFF';
+  }
+});
+
+let red;
+let green;
+let blue;
+function redRandom () {
+  red = (Math.floor(Math.random() * 256));
+  return red;
+}
+
+function greenRandom () {
+  green = (Math.floor(Math.random() * 256));
+  return green;
+}
+
+function blueRandom () {
+  blue = (Math.floor(Math.random() * 256));
+  return blue;
+}
+
 function createGrid () {
   for (i = 0; i < size * size; i++) {
     const box = document.createElement('div');
@@ -41,11 +73,19 @@ function createGrid () {
     
     box.addEventListener('mousedown', () => {
       if (eraser === true) box.style.backgroundColor = 'white';
+      else if (rainbow === true) {
+        box.style.backgroundColor = `rgb(${redRandom()}, ${greenRandom()}, ${blueRandom()})`;
+      }
       else box.style.backgroundColor = 'black';
     })
     box.addEventListener('mouseover', () => {
       if (eraser === true) {
         if (mouseDown === true) { box.style.backgroundColor = 'white'; }
+      }
+      else if (rainbow === true) {
+        if (mouseDown === true) {
+          box.style.backgroundColor = `rgb(${redRandom()}, ${greenRandom()}, ${blueRandom()})`;
+        }
       }
       else {
         if (mouseDown === true) { box.style.backgroundColor = 'black'; }
@@ -70,7 +110,7 @@ function reset () {
 }
 
 sizeButton.addEventListener('mouseup', () => {
-  size = +prompt('Enter a number 128 or lower to set the width and height of the grid:', );
+  size = +prompt('Enter a number higher than 0 and lower than 129 to set the dimensions of the grid:', );
   if (size <= 128 && size > 0) {
   removeGrid();
   createGrid();
@@ -79,3 +119,4 @@ sizeButton.addEventListener('mouseup', () => {
 });
 
 resetButton.addEventListener('mouseup', (reset));
+
