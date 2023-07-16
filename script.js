@@ -78,18 +78,25 @@ function createGrid () {
     }
 
     box.addEventListener('mousedown', () => {
-      if (eraser === true) box.style.backgroundColor = 'white';
+      if (eraser === true) {
+        box.style.backgroundColor = 'white';
+        shadeColor = 0;
+      }
       else if (rainbow === true) {
         box.style.backgroundColor = `rgb(${colorRandom()}, ${colorRandom()}, ${colorRandom()})`;
       }
       else if (shading === true) {
-        box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
+        if (box.style.backgroundColor === 'rgb(0, 0, 0, 1)') {}
+        else box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
       }
-      else box.style.backgroundColor = 'black';
+      else box.style.backgroundColor = 'rgb(0, 0, 0, 1)';
     })
     box.addEventListener('mouseover', () => {
       if (eraser === true) {
-        if (mouseDown === true) { box.style.backgroundColor = 'white'; }
+        if (mouseDown === true) {
+          box.style.backgroundColor = 'white';
+          shadeColor = 0;
+        }
       }
       else if (rainbow === true) {
         if (mouseDown === true) {
@@ -98,11 +105,12 @@ function createGrid () {
       }
       else if (shading === true) {
         if (mouseDown === true) {
-          box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
+          if (box.style.backgroundColor === 'rgb(0, 0, 0, 1)') {}
+          else box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
         }
       }
       else {
-        if (mouseDown === true) { box.style.backgroundColor = 'black'; }
+        if (mouseDown === true) { box.style.backgroundColor = 'rgb(0, 0, 0, 1)'; }
       }
     });
   }
