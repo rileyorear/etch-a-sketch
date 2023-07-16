@@ -44,11 +44,14 @@ rainbowButton.addEventListener('mouseup', () => {
   }
 });
 
-let color;
-function colorRandom () {
-  color = (Math.floor(Math.random() * 256));
-  return color;
-}
+// let color;
+// function colorRandom () {
+//   color = (Math.floor(Math.random() * 256));
+//   return color;
+// }
+
+const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple'];
+let colorInteger = 0;
 
 let shading = false;
 shadingButton.addEventListener('mouseup', () => {
@@ -83,7 +86,9 @@ function createGrid () {
         shadeColor = 0;
       }
       else if (rainbow === true) {
-        box.style.backgroundColor = `rgb(${colorRandom()}, ${colorRandom()}, ${colorRandom()})`;
+        box.style.backgroundColor = `${colors[colorInteger]}`;
+        colorInteger++;
+        if (colorInteger === colors.length) colorInteger = 0;
       }
       else if (shading === true) {
         if (box.style.backgroundColor !== 'rgb(0, 0, 0)') {
@@ -101,7 +106,9 @@ function createGrid () {
       }
       else if (rainbow === true) {
         if (mouseDown === true) {
-          box.style.backgroundColor = `rgb(${colorRandom()}, ${colorRandom()}, ${colorRandom()})`;
+          box.style.backgroundColor = `${colors[colorInteger]}`;
+          colorInteger++;
+          if (colorInteger === colors.length) colorInteger = 0;
         }
       }
       else if (shading === true) {
