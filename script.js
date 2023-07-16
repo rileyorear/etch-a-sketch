@@ -4,7 +4,7 @@ const sizeButton = document.querySelector('#sizeButton');
 const resetButton = document.querySelector('#resetButton');
 const eraserButton = document.querySelector('#eraserButton');
 const rainbowButton = document.querySelector('#rainbowButton');
-const shadingButton = document.querySelector('shadingButton');
+const shadingButton = document.querySelector('#shadingButton');
 
 let mouseDown = false;
 body.addEventListener('mousedown', () => {
@@ -44,23 +44,23 @@ rainbowButton.addEventListener('mouseup', () => {
   }
 });
 
-let red;
-let green;
-let blue;
-function redRandom () {
-  red = (Math.floor(Math.random() * 256));
-  return red;
+let color;
+function colorRandom () {
+  color = (Math.floor(Math.random() * 256));
+  return color;
 }
 
-function greenRandom () {
-  green = (Math.floor(Math.random() * 256));
-  return green;
-}
-
-function blueRandom () {
-  blue = (Math.floor(Math.random() * 256));
-  return blue;
-}
+let shading = false;
+shadingButton.addEventListener('mouseup', () => {
+  if (shading === false) {
+    shading = true;
+    shadingButton.textContent = 'SHADING: ON';
+  } 
+  else {
+    shading = false;
+    shadingButton.textContent = 'SHADING: OFF';
+  }
+});
 
 function createGrid () {
   for (i = 0; i < size * size; i++) {
@@ -71,10 +71,19 @@ function createGrid () {
     box.style.backgroundColor = 'white';
     container.appendChild(box);
     
+    let shadeColor = 0;
+    function shadingUpdate () {
+      shadeColor = shadeColor + 0.1;
+      return shadeColor;
+    }
+
     box.addEventListener('mousedown', () => {
       if (eraser === true) box.style.backgroundColor = 'white';
       else if (rainbow === true) {
-        box.style.backgroundColor = `rgb(${redRandom()}, ${greenRandom()}, ${blueRandom()})`;
+        box.style.backgroundColor = `rgb(${colorRandom()}, ${colorRandom()}, ${colorRandom()})`;
+      }
+      else if (shading === true) {
+        box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
       }
       else box.style.backgroundColor = 'black';
     })
@@ -84,7 +93,12 @@ function createGrid () {
       }
       else if (rainbow === true) {
         if (mouseDown === true) {
-          box.style.backgroundColor = `rgb(${redRandom()}, ${greenRandom()}, ${blueRandom()})`;
+          box.style.backgroundColor = `rgb(${colorRandom()}, ${colorRandom()}, ${colorRandom()})`;
+        }
+      }
+      else if (shading === true) {
+        if (mouseDown === true) {
+          box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
         }
       }
       else {
@@ -119,4 +133,3 @@ sizeButton.addEventListener('mouseup', () => {
 });
 
 resetButton.addEventListener('mouseup', (reset));
-
