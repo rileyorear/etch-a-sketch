@@ -86,8 +86,9 @@ function createGrid () {
         box.style.backgroundColor = `rgb(${colorRandom()}, ${colorRandom()}, ${colorRandom()})`;
       }
       else if (shading === true) {
-        if (box.style.backgroundColor === 'rgb(0, 0, 0, 1)') {}
-        else box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
+        if (box.style.backgroundColor !== 'rgb(0, 0, 0)') {
+          box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
+        }
       }
       else box.style.backgroundColor = 'rgb(0, 0, 0, 1)';
     })
@@ -105,8 +106,9 @@ function createGrid () {
       }
       else if (shading === true) {
         if (mouseDown === true) {
-          if (box.style.backgroundColor === 'rgb(0, 0, 0, 1)') {}
-          else box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
+          if (box.style.backgroundColor !== 'rgb(0, 0, 0)') {
+            box.style.backgroundColor = `rgb(0, 0, 0, ${shadingUpdate()})`;
+          }
         }
       }
       else {
